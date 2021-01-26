@@ -1,0 +1,134 @@
+﻿@model CuaHangTapHoa.Models.ViewModels.CTDonHangViewModel
+@using CuaHangTapHoa.Extensions
+@using CuaHangTapHoa.Utility
+@{
+    ViewData["Title"] = "Delete";
+}
+<br />
+<h2 class="text-info">Chỉnh sửa đơn hàng</h2>
+
+<form method="post" >
+    <div class="p-4 border rounded row">
+        <input hidden asp-for="DonHang.MaDH" />
+        <div class="col-6">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DonHang.TenKH"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DonHang.TenKH" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DonHang.SoDienThoai"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DonHang.SoDienThoai" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DonHang.DiaChiKH"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DonHang.DiaChiKH" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DonHang.NgayNhanHang"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DonHang.NgayNhanHang" readonly id="datepicker" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DonHang.GioNhanHang"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DonHang.GioNhanHang" readonly id="timepicker" type="text" class="timepicker form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DonHang.TongTien"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DonHang.TongTien" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DonHang.NgayLapDH"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DonHang.NgayLapDH" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DonHang.NhanVien"></label>
+                </div>
+                <div class="col-8">
+                    @if (User.IsInRole(SD.NhanVien))
+                    {
+                        <input asp-for="@Model.DonHang.NhanVien.TenNV" readonly class="form-control" />
+                        <input asp-for="@Model.DonHang.MaNV" hidden />
+                    }
+                    else
+                    {
+                        <select asp-for="@Model.DonHang.MaNV" disabled asp-items="Model.NhanViens.ToSelectListItemNV(Model.DonHang.MaNV)" class="form-control"></select>
+                    }
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DonHang.TrangThai"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DonHang.TrangThai" disabled class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <partial name="~/Views/Shared/_DonHangChiTietSanPham.cshtml" model="Model.SanPhams" />
+        </div>
+
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger" asp-route-ma="@Model.DonHang.MaDH" value="Xóa" />
+            <a asp-action="Index" class="btn btn-success">Trở về danh sách</a>
+        </div>
+    </div>
+
+</form>
+
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        
+
+        $(document).ready(function () {
+            var appointmentTime = document.getElementById('datepicker').value;
+            var splitData = "";
+            if (appointmentTime.indexOf(" ") > 0) {
+                splitData = appointmentTime.split(" ");
+            }
+            else {
+                splitData = appointmentTime.split("T");
+            }
+            var time = splitData[1].substring(0, 5);
+
+            if (time.slice(-1) == ":") {
+                time = time.substring(0, time.length - 1);
+            }
+            var amPmTime = splitData[2];
+            $('#datepicker').attr('value', splitData[0]);
+            $('#timepicker').attr('value', time + ' ' + amPmTime);
+        });
+    </script>
+}

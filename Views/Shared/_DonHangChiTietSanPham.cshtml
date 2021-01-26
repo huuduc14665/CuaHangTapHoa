@@ -1,0 +1,67 @@
+﻿@model List<CuaHangTapHoa.Models.SanPham>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@if (Model.Count > 0)
+{
+    <table class="table table-striped" width="100%">
+        <tr class="table-info">
+            <th style="text-align:center; width:20%"></th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().TenSP"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().Gia"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().MatHang"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().NhaCungCap"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().MoTa"></label>
+            </th>
+            <th style="text-align:center;">
+                <label asp-for="@Model.FirstOrDefault().SoLuong"></label>
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+    <tr style="padding:50px">
+        <td>
+            <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-ma="@item.MaSP">
+                <img src="@item.Hinh" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9" />
+            </a>
+        </td>
+        <td style="text-align:center;">
+            @Html.DisplayFor(c => item.TenSP)
+        </td>
+        <td style="text-align:center;">
+            @Html.DisplayFor(c => item.Gia)
+        </td>
+        <td style="text-align:center;">
+            @Html.DisplayFor(c => item.MatHang.TenMH)
+        </td>
+        <td style="text-align:center;">
+            @Html.DisplayFor(c => item.NhaCungCap.TenNCC)
+        </td>
+        <td style="text-align:center;">
+            @Html.DisplayFor(c => item.MoTa)
+        </td>
+        <td style="text-align:center;">
+            @Html.DisplayFor(c => item.SoLuong)
+        </td>
+        <td style="text-align:center;">
+        </td>
+
+    </tr>
+        }
+    </table>
+}
+else
+{
+    <div>Không có sản phẩm nào trong giỏ hàng....</div>
+}

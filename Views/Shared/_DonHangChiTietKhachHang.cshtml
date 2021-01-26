@@ -1,0 +1,44 @@
+﻿@model CuaHangTapHoa.Models.DonHang
+
+<h4 class="text-success">Chi tiết đơn hàng</h4>
+
+<div style="height:100px; background-color:aliceblue" class="container border">
+    <div class="col-12">
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+                Tên khách hàng
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.TenKH" readonly class="form-control" />
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                Địa chỉ
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.DiaChiKH" readonly class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+                Số điện thoại
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.SoDienThoai" readonly class="form-control" />
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                Ngày nhận hàng 
+            </div>
+            <div class="col-3">
+                <input asp-for="@Model.NgayNhanHang" readonly class="form-control" />
+            </div>
+        </div>
+    </div>
+</div>

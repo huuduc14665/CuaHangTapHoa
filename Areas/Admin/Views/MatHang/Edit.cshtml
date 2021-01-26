@@ -1,0 +1,64 @@
+﻿@model CuaHangTapHoa.Models.ViewModels.MatHangViewModel
+@using CuaHangTapHoa.Extensions
+@{
+    ViewData["Title"] = "Edit";
+}
+@{
+    string extensionLMH = "LMH";
+}
+
+<br />
+<h2 class="text-info">Chỉnh sửa mặt hàng</h2>
+
+<form method="post">
+    <div class="p-4 border rounded">
+        <input hidden asp-for="MatHang.MaMH" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MatHang.TenMH"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="MatHang.TenMH" class="form-control" />
+            </div>
+            <span asp-validation-for="MatHang.TenMH" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="LoaiMatHang"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="@Model.MatHang.MaLMH" asp-items="Model.LoaiMatHang.ToSelectListItem(Model.MatHang.MaLMH, extensionLMH)" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MatHang.MoTa"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="MatHang.MoTa" class="form-control" />
+            </div>
+            <span asp-validation-for="MatHang.MoTa" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MatHang.TrangThai"></label>
+            </div>
+            <div class="col-5">
+                <input type="checkbox" asp-for="MatHang.TrangThai" />
+            </div>
+        </div>
+
+
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Cập nhật" />
+            <a asp-action="Index" class="btn btn-success">Trở về danh sách</a>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

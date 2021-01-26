@@ -1,0 +1,135 @@
+﻿@model List<CuaHangTapHoa.Models.SanPham>
+
+<hr />
+
+
+<div class="row">
+    <div class="col-11">
+        <img src="~/images/hot_tag.png" style="width:150px;height:50px" />
+        <br /> <br />
+        <div class="row">
+            @{
+                List<SanPham> sanPhams = new List<SanPham>();
+                foreach (var sp in Model)
+                {
+                    if (sp.Tag.TenTag.ToLower() == "hot") { sanPhams.Add(sp); }
+                }
+                for (int i = 0; i < sanPhams.Count && i < 4; i++)
+                {
+                    var sanpham = sanPhams[i];
+                    <div class="col-3">
+                        <div class="card mb-2" style="height:300px;width:auto">
+                            <div class="card-header" style="text-align:center;width:auto">
+                                <h4 class="my-0 font-weight-normal" style="height:40px;font-size:15px;color:mediumblue;">
+                                    <label>@sanpham.TenSP</label>
+                                </h4>
+                            </div>
+                            <img class="card-body" style="height:auto;max-height:160px" src="@sanpham.Hinh" alt="Card Image" />
+                            <div class="card-body" style="height:200px;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <label style="font-size:13px; color:#a51313"><b>@sanpham.Gia</b> VNĐ</label>
+                                    </div>
+                                    <a asp-action="Details" asp-controller="Home" class="btn  pull-right btn-outline-info" asp-route-ma="@sanpham.MaSP">Chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <hr>
+        <img src="~/images/new_tag.png" style="width:150px;height:65px" /><br /><br />
+        <div class="row">
+            @{
+                List<SanPham> sanPhams2 = new List<SanPham>();
+                foreach (var sp in Model)
+                {
+                    if (sp.Tag.TenTag.ToLower() == "new") { sanPhams2.Add(sp); }
+                }
+                for (int i = 0; i < sanPhams2.Count && i < 4; i++)
+                {
+                    var sanpham = sanPhams2[i];
+                    <div class="col-3">
+                        <div class="card mb-2" style="height:300px;width:auto">
+                            <div class="card-header" style="text-align:center;width:auto">
+                                <h4 class="my-0 font-weight-normal" style="height:40px;font-size:15px;color:mediumblue;">
+                                    <label>@sanpham.TenSP</label>
+                                </h4>
+                            </div>
+                            <img class="card-body" style="height:auto;max-height:160px" src="@sanpham.Hinh" alt="Card Image" />
+                            <div class="card-body" style="height:200px;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <label style="font-size:13px; color:#a51313"><b>@sanpham.Gia</b> VNĐ</label>
+                                    </div>
+                                    <a asp-action="Details" asp-controller="Home" class="btn  pull-right btn-outline-info" asp-route-ma="@sanpham.MaSP">Chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <hr>
+        <h2 style="font-family:Arial">Tất cả sản phẩm</h2>
+        <br />
+        <div class="row">
+            @foreach (var sanpham in Model)
+            {
+                <div class="col-3">
+                    <div class="card mb-2" style="height:300px;width:auto">
+                        <div class="card-header" style="text-align:center;width:auto">
+                            <h4 class="my-0 font-weight-normal" style="height:40px;font-size:15px;color:mediumblue;">
+                                <label>@sanpham.TenSP</label>
+                            </h4>
+                        </div>
+                        <img class="card-body" style="height:auto;max-height:160px" src="@sanpham.Hinh" alt="Card Image" />
+                        <div class="card-body" style="height:200px;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <label style="font-size:14px; color:#a51313"><b>@sanpham.Gia</b> VNĐ</label>
+                                </div>
+                                <a asp-action="Details" asp-controller="Home" class="btn  pull-right btn-outline-info" asp-route-ma="@sanpham.MaSP">Chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+@*@model List<CuaHangTapHoa.Models.SanPham>
+
+    <br />
+    <br />
+
+
+    <div class="row">
+        @foreach (var sanpham in Model)
+        {
+            <div class="col-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">
+                            <label style="font-size:25px;color:steelblue;">@sanpham.TenSP</label>
+                        </h4>
+                    </div>
+
+                    <img class="card-img-top" style="height:100%;" src="@sanpham.Hinh" alt="Card Image" />
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <label style="font-size:20px; color:#a51313"><b>@sanpham.Gia</b> VNĐ</label>
+                            </div>
+                            <a asp-action="Details" asp-controller="Home" class="btn  pull-right btn-outline-info" asp-route-ma="@sanpham.MaSP">Xem sản phẩm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>*@

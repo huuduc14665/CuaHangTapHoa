@@ -1,0 +1,104 @@
+﻿@model CuaHangTapHoa.Models.ViewModels.SanPhamViewModel
+@using CuaHangTapHoa.Extensions
+@{
+    ViewData["Title"] = "Edit";
+}
+@{
+    string extensionMH = "MH";
+    string extensionTag = "Tag";
+    string extensionNCC = "NCC";
+}
+<br />
+<h2 class="text-info">Chỉnh sửa thông tin sản phẩm</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="p-4 border rounded row">
+        <input hidden asp-for="SanPham.MaSP" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SanPham.TenSP"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SanPham.TenSP" class="form-control" />
+                </div>
+                <span asp-validation-for="SanPham.TenSP" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SanPham.Gia"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SanPham.Gia" class="form-control" />
+                </div>
+                <span asp-validation-for="SanPham.Gia" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MatHangs"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="@Model.SanPham.MaMH" asp-items="Model.MatHangs.ToSelectListItem(Model.SanPham.MaMH, extensionMH)" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Tags"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="@Model.SanPham.MaTag" asp-items="Model.Tags.ToSelectListItem(Model.SanPham.MaTag, extensionTag)" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="NhaCungCaps"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="@Model.SanPham.MaNCC" asp-items="Model.NhaCungCaps.ToSelectListItem(Model.SanPham.MaNCC, extensionNCC)" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SanPham.MoTa"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SanPham.MoTa" class="form-control" />
+                </div>
+                <span asp-validation-for="SanPham.MoTa" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SanPham.Hinh"></label>
+                </div>
+                <div class="col-8">
+                    <input type="file" name="files" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SanPham.TrangThai"></label>
+                </div>
+                <div class="col-8">
+                    <input type="checkbox" asp-for="SanPham.TrangThai" />
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <div class="col-3">
+            <img src="@Model.SanPham.Hinh" width="100%" style="border-radius:5px; border: 1px solid #bbb9b9;" />
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Cập nhật" />
+            <a asp-action="Index" class="btn btn-success">Trở về danh sách</a>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

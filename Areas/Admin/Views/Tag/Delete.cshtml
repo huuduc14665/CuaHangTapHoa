@@ -1,0 +1,27 @@
+﻿@model CuaHangTapHoa.Models.Tag
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<h2 class="text-info">Xóa Tag</h2>
+
+<form method="post" asp-action="Delete">
+    <div class="p-4 border rounded">
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TenTag"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="TenTag" disabled class="form-control" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger" asp-route-ma="@Model.MaTag" value="Xóa" />
+            <a asp-action="Index" class="btn btn-success">Trở về danh sách</a>
+        </div>
+    </div>
+
+</form>

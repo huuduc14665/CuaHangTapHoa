@@ -1,0 +1,133 @@
+﻿@model CuaHangTapHoa.Models.SanPham
+@using CuaHangTapHoa.Extensions
+@using Microsoft.AspNetCore.Http
+@using CuaHangTapHoa.Utility
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Details";
+}
+@{ 
+    int soLuong = 1;
+}
+<br />
+<h2 class="text-info">Chi tiết sản phẩm</h2>
+
+<form method="post">
+    <div class="p-4 border rounded row">
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="TenSP"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="TenSP" class="form-control" disabled />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Gia"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Gia" class="form-control" disabled />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MatHang"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="MatHang.TenMH" class="form-control" disabled />
+                </div>
+
+            </div>
+            @if (!Model.Tag.TenTag.Equals("None"))
+            {
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Tag"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Tag.TenTag" class="form-control" disabled />
+                    </div>
+                </div>
+            }
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="NhaCungCap"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="NhaCungCap.TenNCC" class="form-control" disabled />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MoTa"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="MoTa" class="form-control" style="height:150px;" disabled></textarea> 
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                    @{
+                        bool isInBag = false;
+                        List<SLSP> lstGio = HttpContextAccessor.HttpContext.Session.Get<List<SLSP>>("ssGioHang");
+                        if (lstGio != null)
+                        {
+                            SLSP sp = lstGio.Find(s => s.MaSP == Model.MaSP);
+                            if (lstGio.Contains(sp))
+                            {
+                                isInBag = true;
+                            }
+                        }
+                    }
+                    @if (isInBag)
+                    {
+                        <button type="submit" value="Remove from Bag" asp-action="Remove" asp-route-ma="@Model.MaSP" class="btn btn-danger form-control">Bỏ khỏi giỏ</button>
+                    }
+                    else
+                    {
+                        <br />
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label class="text-danger font-weight-bold">Số lượng </label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" asp-for="@soLuong" onkeypress="return event.charCode >= 48" min="1" class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+                        <button type="submit" value="Add to Bag" asp-route-ma="@Model.MaSP" class="btn btn-primary form-control"> Thêm vào giỏ</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <div class="col-3">
+            <img src="@Model.Hinh" width="100%" style="border-radius:5px; border: 1px solid #bbb9b9;" />
+            <br /><br />
+            @if (Model.TrangThai)
+            {
+                <h3 class="text-success" style="text-align:center">Còn hàng</h3>
+                
+            }
+        </div>
+        <br />
+        <div class="form-group">
+            <input hidden asp-for="MaSP" />
+            <a asp-action="Index" class="btn btn-success">Trở về</a>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

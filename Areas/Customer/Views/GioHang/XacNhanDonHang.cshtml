@@ -1,0 +1,28 @@
+﻿@model CuaHangTapHoa.Models.ViewModels.GioHangViewModel
+@{
+    ViewData["Title"] = "XacNhanDonHang";
+}
+
+<br />
+<h2 class="text-info">Xác nhận đơn hàng</h2>
+
+<div class="form-text">
+    Đơn hàng của bạn đã được xác nhận. Nhân viên cửa hàng sẽ nhanh chóng liên hệ để kiểm tra. Nếu có câu hỏi, thắc mắc xin vui lòng liên hệ với chúng tôi.
+    Cảm ơn bạn đã mua hàng.
+</div>
+<br />
+<partial name="~/Views/Shared/_DonHangChiTietKhachHang.cshtml" model="Model.DonHang" />
+<br />
+<partial name="~/Views/Shared/_DonHangChiTietSanPham.cshtml" model="Model.SanPhams" />
+
+<div class="form-group table-active row">
+    <div class="col-6"></div>
+    <div class="col-3 border-info " style="font-size:35px;">
+       @Html.DisplayNameFor(m=>m.DonHang.TongTien)
+    </div>
+    <div class="col-3 border-info " style="font-size:30px;">
+        @Html.DisplayFor(m => m.DonHang.TongTien) VNĐ
+    </div>
+</div> 
+
+<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-success">Trở về trang chủ</a>

@@ -1,0 +1,137 @@
+﻿@model CuaHangTapHoa.Models.ViewModels.DSSanPhamViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+<form method="get">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Danh sách sản phẩm</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Thêm sản phẩm mới</a>
+        </div>
+    </div>
+    <div style="height:150px; background-color:aliceblue" class="container">
+        @*Search area*@
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+                Tên sản phẩm
+            </div>
+            <div class="col-3">
+                @Html.Editor("searchTen", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                Mặt hàng
+            </div>
+            <div class="col-3">
+                @Html.Editor("searchMH", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+                Tag
+            </div>
+            <div class="col-3">
+                @Html.Editor("searchTag", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                Nhà cung cấp
+            </div>
+            <div class="col-3">
+                @Html.Editor("searchNCC", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+            </div>
+            <div class="col-3">
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+            </div>
+            <div class="col-3">
+                <button type="submit" name="submit" value="Search" class="btn btn-primary form-control">
+                    <i class="fas fa-search">Tìm kiếm</i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <br />
+    <div>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(m => m.SanPhams.FirstOrDefault().TenSP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.SanPhams.FirstOrDefault().Gia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.SanPhams.FirstOrDefault().MatHang)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.SanPhams.FirstOrDefault().Tag)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.SanPhams.FirstOrDefault().NhaCungCap)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.SanPhams.FirstOrDefault().MoTa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.SanPhams.FirstOrDefault().TrangThai)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.SanPhams)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.TenSP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Gia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.MatHang.TenMH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Tag.TenTag)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.NhaCungCap.TenNCC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.MoTa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.TrangThai)
+                    </td>
+                    <td>
+                        <partial name="_TableButtonPartial" model="item.MaSP" />
+                    </td>
+                </tr>
+            }
+        </table>
+        <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+             page-class="btn border" page-class-normal="btn btn-default active"
+             page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+    </div>
+</form>

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CuaHangTapHoa.Models.NhaCungCap>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Danh sách nhà cung cấp</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i> Nhà cung cấp mới</a>
+    </div>
+</div>
+
+<br />
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.TenNCC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.SoDienThoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DiaChi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.TrangThai)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.TenNCC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.SoDienThoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.DiaChi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.TrangThai)
+                    </td>
+                    <td>
+                        <partial name="_TableButtonPartial" model="item.MaNCC" />
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

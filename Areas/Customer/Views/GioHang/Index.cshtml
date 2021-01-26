@@ -1,0 +1,155 @@
+﻿@model CuaHangTapHoa.Models.ViewModels.GioHangViewModel
+@using CuaHangTapHoa.Utility
+@using CuaHangTapHoa.Extensions
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Index";
+}
+@{ 
+}
+    <form method="post">
+        <br /><br />
+        <h2 class="text-info">Giỏ hàng của bạn</h2>
+        <br />
+        @if (Model.SanPhams.Count > 0)
+        {
+            <div class="container border border-secondary rounded" style="padding:15px;">
+                <div class="row">
+                    <div class="col-8" style="border-right:1px solid #bbb9b9;">
+                        <table class="table table-striped" width="100%">
+                            <tr class="table-info">
+                                <th style="text-align:center; width:20%"></th>
+                                <th style="text-align:center;">
+                                    <label asp-for="@Model.SanPhams.FirstOrDefault().TenSP"></label>
+                                </th>
+                                <th style="text-align:center;">
+                                    <label asp-for="@Model.SanPhams.FirstOrDefault().Gia"></label>
+                                </th>
+                                <th style="text-align:center;">
+                                    <label asp-for="@Model.SanPhams.FirstOrDefault().MatHang"></label>
+                                </th>
+                                <th style="text-align:center;">
+                                    <label asp-for="@Model.SanPhams.FirstOrDefault().NhaCungCap"></label>
+                                </th>
+                                <th style="text-align:center;">
+                                    <label asp-for="@Model.SanPhams.FirstOrDefault().MoTa"></label>
+                                </th>
+                                <th style="text-align:center;">
+                                    <label>Số lượng</label>
+                                </th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in Model.SanPhams)
+                            {
+                                <tr style="padding:50px">
+                                    <td>
+                                        <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-ma="@item.MaSP">
+                                            <img src="@item.Hinh" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9" />
+                                        </a>
+                                    </td>
+                                    <td style="text-align:center;">
+                                        @Html.DisplayFor(c => item.TenSP)
+                                    </td>
+                                    <td style="text-align:center;">
+                                        @Html.DisplayFor(c => item.Gia)
+                                    </td>
+                                    <td style="text-align:center;">
+                                        @Html.DisplayFor(c => item.MatHang.TenMH)
+                                    </td>
+                                    <td style="text-align:center;">
+                                        @Html.DisplayFor(c => item.NhaCungCap.TenNCC)
+                                    </td>
+                                    <td style="text-align:center;">
+                                        @Html.DisplayFor(c => item.MoTa)
+                                    </td>
+                                    <td style="text-align:center;">
+                                        @{
+                                            List<SLSP> lstSP = HttpContextAccessor.HttpContext.Session.Get<List<SLSP>>("ssGioHang");
+                                            SLSP sp = lstSP.Find(s => s.MaSP == item.MaSP);
+                                            <label >@sp.SoLuong.ToString()</label>
+                                        }
+                                        @*<input asp-for="@item.SoLuong" type="number" onkeypress="return event.charCode >= 48" min="1" class="form-control" />*@
+                                    </td>
+                                    <td class="form-row" style="text-align:center;">
+                                        <button type="submit" class="btn btn-danger" asp-action="Remove" asp-route-ma="@item.MaSP">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                    <div class="col-4" style="padding-left:15px">
+                        <div class="row">
+                            <div class="col-12">
+                                <label>Tên khách hàng : </label>
+                            </div>
+                            <div class="col-12" style="padding-bottom:15px;">
+                                <input asp-for="@Model.DonHang.TenKH" class="form-control" />
+                            </div>
+                            <div class="col-12">
+                                <label>Số điện thoại </label>
+                            </div>
+                            <div class="col-12" style="padding-bottom:15px;">
+                                <input asp-for="@Model.DonHang.SoDienThoai" class="form-control" />
+                            </div>
+                            <div class="col-12">
+                                <label>Địa chỉ </label>
+                            </div>
+                            <div class="col-12">
+                                <input asp-for="@Model.DonHang.DiaChiKH" class="form-control" />
+                            </div>
+                            <div class="col-12">
+                                <label>Ngày nhận hàng : </label>
+                            </div>
+                            <div class="col-12" style="padding-bottom:15px;">
+                                <input asp-for="@Model.DonHang.NgayNhanHang" value="" type="text" id="datepicker" class="form-control" />
+                            </div>
+                            <div class="col-12">
+                                <label>Giờ nhận : </label>
+                            </div>
+                            <div class="col-12" style="padding-bottom:15px;">
+                                <input asp-for="@Model.DonHang.GioNhanHang" value="" type="text" class="timepicker form-control" />
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" id="btnPlaceOrder" class="btn btn-success">Đặt hàng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div>Không có sản phẩm nào trong giỏ hàng....</div>
+        }
+    </form>
+
+@section Scripts{
+    <script>
+        $('.timepicker').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 30,
+            minTime: '10',
+            maxTime: '3:00pm',
+            startTime: '10:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+        });
+        $(function () {
+            $("#datepicker").datepicker({
+                minDate: +1, maxDate: "+3M"
+            });
+        });
+        function OnlyNumber(i) {
+            if (i.value.length > 0) {
+                i.value = i.value.replace(/[^\d]+/g, '');
+            }
+        }
+    </script>
+}

@@ -1,0 +1,95 @@
+﻿@model CuaHangTapHoa.Models.ViewModels.SanPhamViewModel
+@using CuaHangTapHoa.Extensions
+@{
+    ViewData["Title"] = "Delete";
+}
+<br />
+<h2 class="text-info">Xóa sản phẩm</h2>
+
+<form method="post" >
+    <div class="p-4 border rounded row">
+        <input hidden asp-for="SanPham.MaSP" />
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SanPham.TenSP"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SanPham.TenSP" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SanPham.Gia"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SanPham.Gia" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MatHangs"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SanPham.MatHang.TenMH" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Tags"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SanPham.Tag.TenTag" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="NhaCungCaps"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SanPham.NhaCungCap.TenNCC" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SanPham.MoTa"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="SanPham.MoTa" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SanPham.Hinh"></label>
+                </div>
+                <div class="col-8">
+                    <input type="file" name="files" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="SanPham.TrangThai"></label>
+                </div>
+                <div class="col-8">
+                    <input type="checkbox" asp-for="SanPham.TrangThai" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <div class="col-3">
+            <img src="@Model.SanPham.Hinh" width="100%" style="border-radius:5px; border: 1px solid #bbb9b9;" />
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger" value="Xóa" />
+            <a asp-action="Index" class="btn btn-success">Trở về danh sách</a>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

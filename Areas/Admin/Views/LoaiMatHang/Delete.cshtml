@@ -1,0 +1,47 @@
+﻿@model CuaHangTapHoa.Models.LoaiMatHang
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<h2 class="text-info">Xóa loại mặt hàng </h2>
+
+<form method="post" asp-action="Edit">
+    <div class="p-4 border rounded">
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TenLMH"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="TenLMH" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MoTa"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="MoTa" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TrangThai"></label>
+            </div>
+            <div class="col-5">
+                <input type="checkbox" disabled asp-for="TrangThai" />
+            </div>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger" asp-route-ma="@Model.MaLMH" value="Xóa" />
+            <a asp-action="Index" class="btn btn-success">Trở về danh sách</a>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,59 @@
+﻿@model CuaHangTapHoa.Models.NhaCungCap
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<h2 class="text-info">Tạo nhà cung cấp mới</h2>
+
+<form method="post" asp-action="Create">
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TenNCC"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="TenNCC" class="form-control" />
+            </div>
+            <span asp-validation-for="TenNCC" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="SoDienThoai"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="SoDienThoai" class="form-control" />
+            </div>
+            <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="DiaChi"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="DiaChi" class="form-control" />
+            </div>
+            <span asp-validation-for="DiaChi" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TrangThai"></label>
+            </div>
+            <div class="col-5">
+                <input type="checkbox" asp-for="TrangThai" />
+            </div>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Tạo" />
+            <a asp-action="Index" class="btn btn-success">Trở về danh sách</a>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

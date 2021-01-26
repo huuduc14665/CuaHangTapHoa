@@ -1,0 +1,55 @@
+﻿@model CuaHangTapHoa.Models.ViewModels.MatHangViewModel
+@using CuaHangTapHoa.Extensions
+@{
+    ViewData["Title"] = "Delete";
+}
+<br />
+<h2 class="text-info">Xóa mặt hàng</h2>
+
+<form method="post">
+    <div class="p-4 border rounded">
+        <input hidden asp-for="MatHang.MaMH" />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MatHang.TenMH"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="MatHang.TenMH" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="LoaiMatHang"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="MatHang.LoaiMatHang.TenLMH" disabled class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MatHang.MoTa"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="MatHang.MoTa" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MatHang.TrangThai"></label>
+            </div>
+            <div class="col-5">
+                <input type="checkbox" disabled asp-for="MatHang.TrangThai" />
+            </div>
+        </div>
+
+
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger" value="Xóa" />
+            <a asp-action="Index" class="btn btn-success">Trở về danh sách</a>
+        </div>
+    </div>
+
+</form>
+
+

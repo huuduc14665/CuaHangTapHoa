@@ -1,0 +1,55 @@
+﻿@model CuaHangTapHoa.Models.NhaCungCap
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<h2 class="text-info">Xóa nhà cung cấp </h2>
+
+<form method="post" asp-action="Edit">
+    <div class="p-4 border rounded">
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TenNCC"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="TenNCC" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="SoDienThoai"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="SoDienThoai" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="DiaChi"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="DiaChi" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TrangThai"></label>
+            </div>
+            <div class="col-5">
+                <input type="checkbox" disabled asp-for="TrangThai" />
+            </div>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger" asp-route-ma="@Model.MaNCC" value="Xóa" />
+            <a asp-action="Index" class="btn btn-success">Trở về danh sách</a>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

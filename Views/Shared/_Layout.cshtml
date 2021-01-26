@@ -1,0 +1,128 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@using CuaHangTapHoa.Extensions
+
+@using CuaHangTapHoa.Utility
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title style="color:deeppink">@ViewData["Title"] Cửa hàng tạp hóa</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/jquery-ui.css" />
+        <link rel="stylesheet" href="~/css/jquery.timepicker.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    </environment>
+    <environment exclude="Development">
+        <<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/jquery-ui.css" />
+        <link rel="stylesheet" href="~/css/jquery.timepicker.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    </environment>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">Cửa hàng tạp hóa</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                @if (User.IsInRole(SD.QuanLi))
+                {
+                    <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="LoaiMatHang" asp-action="Index">Loại mặt hàng</a> </li>
+                    <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="MatHang" asp-action="Index">Mặt hàng</a> </li>
+                    <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Tag" asp-action="Index">Tag</a> </li>
+                    <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="NhaCungCap" asp-action="Index">Nhà cung cấp</a> </li>
+                    <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="SanPham" asp-action="Index">Sản phẩm</a> </li>
+                    <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="NhanVien" asp-action="Index">Nhân viên</a> </li>
+                }
+                @if (User.IsInRole(SD.QuanLi) || User.IsInRole(SD.NhanVien))
+                {
+                    <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="DonHang" asp-action="Index">Đơn hàng</a> </li>
+                }
+                    @if (HttpContextAccessor.HttpContext.Session.Get<List<SLSP>>("ssGioHang") != null)
+                    {
+                        <li style="color:white">
+                            <a asp-area="Customer" asp-controller="GioHang" asp-action="Index" class="nav-link">
+                                <i class="fas fa-shopping-cart"></i> &nbsp;
+                                @{
+                                    var count = HttpContextAccessor.HttpContext.Session.Get<List<SLSP>>("ssGioHang").Count;
+                                }
+                                (@count)
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li style="color:white">
+                            <a asp-area="Customer" asp-controller="GioHang" asp-action="Index" class="nav-link">
+                                <i class="fas fa-shopping-cart"></i> &nbsp;
+                                (0)
+                            </a>
+                        </li>
+                    }
+                </ul>
+        </div>
+        <div>
+            <partial name="_LoginPartial" />
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2019 - CuaHangTapHoa</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/jquery-ui.js" asp-append-version="true"></script>
+        <script src="~/js/jquery.timepicker.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/jquery-ui.js" asp-append-version="true"></script>
+        <script src="~/js/jquery.timepicker.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
